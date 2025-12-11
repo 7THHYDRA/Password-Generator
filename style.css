@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #011558;
+  color: white;
+}
+
+#bodyframe {
+  width: 90%;
+  border: 10px;
+  margin: auto;
+  padding: 10px;
+}
+
+#display{
+    padding: 5px;
+}
+
+#headerDiv {
+  display: block;
+  justify-items: center;
+}
+
+fieldset {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+#filterSet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#pwordBtn {
+  color: antiquewhite;
+  background: #56bbff;
+  width: 150px;
+  margin: 20px;
+  padding: 10px 5px;
+}
