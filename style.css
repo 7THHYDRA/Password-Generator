@@ -16,8 +16,8 @@ body {
   padding: 10px;
 }
 
-#display{
-    padding: 5px;
+#display {
+  padding: 5px;
 }
 
 #headerDiv {
@@ -31,11 +31,10 @@ fieldset {
 }
 
 #filterSet {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 
 #pwordBtn {
   color: antiquewhite;
@@ -43,4 +42,31 @@ fieldset {
   width: 150px;
   margin: 20px;
   padding: 10px 5px;
+}
+
+#copy-feedback{
+    display: none;
+    color: #56bbff;
+}
+
+.input-wrapper {
+    display: flex;
+  position: relative;
+  width: fit-content; /* or 100% if you want full width */
+}
+
+.input-wrapper input {
+  margin-top: 10px;
+  padding-right: 35px; /* space for icon */
+  height: 40px;
+}
+
+.input-wrapper i {
+  position: absolute;
+  right: 10px; /* adjust spacing */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #56bbff; /* change color */
+  font-size: 18px;
 }

@@ -1,96 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
     <title>Password Generator</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="bodyframe">
-        <div id="headerDiv">
-            <h1>Password Generator</h1>
-            <div>
-                <input type="text" id="display" placeholder="Password Generator">
-            </div>
+      <div id="headerDiv">
+        <h1>Password Generator</h1>
+        <div class="input-wrapper">
+          <input type="text" id="display" placeholder="Password Generator" />
+          <i class="fa-solid fa-copy" id="copyBtn"></i>
         </div>
+         <span id="copy-feedback">Copied!</span>
+      </div>
 
-        <div id="filterSet">
-       
-            <fieldset>
-                <legend>Filter Password</legend>
-                <div>
-                     <input type="checkbox" id="lowerCase">
-                     <label for="lowerCase">Include lowercase Characters</label>
-                </div>
-                <div>
-                     <input type="checkbox" id="upperCase">
-                     <label for="upperCase">Include uppercase Characters</label>
-                </div>
-                <div>
-                     <input type="checkbox" id="numbers">
-                     <label for="numbers">Include numbers Characters</label>
-                </div>
-                <div>
-                     <input type="checkbox" id="symbols">
-                     <label for="symbols">Include symbols Characters</label>
-                </div>
-                
-            </fieldset>
+      <div id="filterSet">
+        <fieldset>
+          <legend>Filter Password</legend>
+          <div>
+            <input type="checkbox" id="lowerCase" />
+            <label for="lowerCase">Include lowercase Characters</label>
+          </div>
+          <div>
+            <input type="checkbox" id="upperCase" />
+            <label for="upperCase">Include uppercase Characters</label>
+          </div>
+          <div>
+            <input type="checkbox" id="numbers" />
+            <label for="numbers">Include numbers Characters</label>
+          </div>
+          <div>
+            <input type="checkbox" id="symbols" />
+            <label for="symbols">Include symbols Characters</label>
+          </div>
+        </fieldset>
 
-            <button id="pwordBtn">Generate Password</button>
-
-        </div>
-
+        <button id="pwordBtn">Generate Password</button>
+      </div>
     </div>
-</body>
+  </body>
 
-<script defer>
-const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-const upperCase =  "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const numbers = "1234567890";
-const symbols = "~`!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
+  <script defer>
+    document.getElementById("copyBtn").onclick = async () => {
+      const textToCopy = document.getElementById("display").value;
+      const feedbackEl = document.getElementById("copy-feedback");
 
-const generateBtn = document.getElementById("pwordBtn");
+      try {
+        // Use the Clipboard API to write the text
+        await navigator.clipboard.writeText(textToCopy);
 
-function generatePassword () {
-    
-let lowerCaseIsChecked = document.getElementById("lowerCase").checked;
-let upperCaseIsChecked =  document.getElementById("upperCase").checked;
-let numbersIsChecked = document.getElementById("numbers").checked;
-let symbolsIsChecked = document.getElementById("symbols").checked;
+        // Optional: Provide user feedback
+        feedbackEl.style.display = "block";
+        setTimeout(() => {
+          feedbackEl.style.display = "none";
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy: ", err);
+        alert("Failed to copy text. Please select it manually.");
+      }
+    };
 
-let generatedPassword = "";
-let result = "";
+    const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "1234567890";
+    const symbols = "~`!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
 
-    if(lowerCaseIsChecked) {
-generatedPassword += lowerCase;
+    const generateBtn = document.getElementById("pwordBtn");
+
+    function generatePassword() {
+      let lowerCaseIsChecked = document.getElementById("lowerCase").checked;
+      let upperCaseIsChecked = document.getElementById("upperCase").checked;
+      let numbersIsChecked = document.getElementById("numbers").checked;
+      let symbolsIsChecked = document.getElementById("symbols").checked;
+
+      let generatedPassword = "";
+      let result = "";
+
+      if (lowerCaseIsChecked) {
+        generatedPassword += lowerCase;
+      }
+      if (upperCaseIsChecked) {
+        generatedPassword += upperCase;
+      }
+      if (numbersIsChecked) {
+        generatedPassword += numbers;
+      }
+      if (symbolsIsChecked) {
+        generatedPassword += symbols;
+      }
+
+      if (generatedPassword === "") return "Select at least 1 filter";
+
+      for (let i = 0; i < 12; i++) {
+        let randomNum = Math.floor(Math.random() * generatedPassword.length);
+        result += generatedPassword[randomNum];
+      }
+
+      return result;
     }
-     if(upperCaseIsChecked) {
-generatedPassword += upperCase;
-    }
-     if(numbersIsChecked) {
-generatedPassword += numbers;
-    }
-     if(symbolsIsChecked) {
-generatedPassword += symbols;
-    }
 
-     if (generatedPassword === "") return "Select at least 1 filter";
-     
-    for ( let i = 0; i < 12; i++) {
-    let randomNum = Math.floor(Math.random() * generatedPassword.length);
-    result += generatedPassword[randomNum];
-};
-
-return result;
-};
-
-generateBtn.onclick = () => {
-    document.getElementById("display").value = generatePassword();
-};
-
-
-
-</script>
+    generateBtn.onclick = () => {
+      document.getElementById("display").value = generatePassword();
+    };
+  </script>
 </html>
